@@ -1,29 +1,25 @@
 import React from 'react'
-import {usePokemons} from "../api/api";
-import Loader from "../components/Loader";
-import ROUTE from "../routing/constants";
-import Link from "../routing/Link";
+import { usePokemons } from '../api/api'
+import Loader from '../components/template/Loader'
+import styled from 'styled-components'
+import PokemonCard from '../components/pokemon/PokemonCard'
 
-
-const PokemonItem = ({pokemon}) => {
-    return <li>
-        <Link to={ROUTE.POKEMON} name={pokemon.name}>
-            {pokemon.name}
-        </Link>
-    </li>
-}
+const Item = styled.li`
+`
+const List = styled.ul`
+`
 
 const PokemonList = () => {
-    const { data, error } = usePokemons()
+  const { data, error } = usePokemons()
 
-    if (error) {
-        return <pre>{JSON.stringify(error, null, 2)}</pre>;
-    }
+  if (error) {
+    return <pre>{JSON.stringify(error, null, 2)}</pre>
+  }
 
-    if (!data) {
-        return <Loader />;
-    }
-    return <ul>{data.results.map(pokemon => <PokemonItem pokemon={pokemon} />)}</ul>
+  if (!data) {
+    return <Loader />
+  }
+  return <List>{data.results.map(pokemon => <Item><PokemonCard pokemon={pokemon}/></Item>)}</List>
 }
 
 export default PokemonList

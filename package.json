@@ -5,6 +5,10 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
+    "clx": "^1.0.0",
+    "eslint-config-standard-react": "11.0.1",
     "react": "17.0.0",
     "react-dom": "17.0.0",
     "react-router": "^5.2.0",
@@ -14,13 +18,22 @@
     "swr": "0.3.9"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.6.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.4",
+    "eslint-plugin-standard": "^4.0.1",
+    "standard": "^14.3.4",
     "typescript": "3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src/**",
+    "fix": "eslint ./src/** --fix"
   },
   "browserslist": [
     ">0.2%",

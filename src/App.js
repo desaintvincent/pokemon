@@ -1,19 +1,19 @@
-import React from "react";
-import Template from "./components/Template";
-import Routes from "./routing/Routes";
+import React from 'react'
+import Template from './components/template/Template'
+import Routes from './routing/Routes'
 import {
-    BrowserRouter as Router,
-} from "react-router-dom";
-import Providers from "./providers/Providers";
+  BrowserRouter as Router
+} from 'react-router-dom'
+import Providers from './providers/Providers'
 
-export default function App() {
+export default function App () {
   return (
-      <Router>
-          <Providers>
-              <Template>
-                    <Routes />
-              </Template>
-          </Providers>
-      </Router>
-  );
+    <Router>
+      <Providers>
+        <Template>
+          <Routes />
+        </Template>
+      </Providers>
+    </Router>
+  )
 }
