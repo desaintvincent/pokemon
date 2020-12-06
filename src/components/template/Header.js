@@ -3,9 +3,9 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import AccountCircle from '@material-ui/icons/AccountCircle'
 import styled from 'styled-components'
 import OriginalAppBar from '@material-ui/core/AppBar'
+import LoginHeadbar from '../login/LoginHeadbar'
 
 const Title = styled(Typography)`
   flex-grow: 1;
@@ -34,8 +34,6 @@ const MenuButton = styled(IconButton)`
 `
 
 export default function Header ({ open = false, handleDrawerOpen }) {
-  const [auth] = React.useState(true)
-
   return (
     <AppBar open={open}>
       <Toolbar position='fixed'>
@@ -51,39 +49,7 @@ export default function Header ({ open = false, handleDrawerOpen }) {
         <Title variant='h6'>
                     Title
         </Title>
-        {auth && (
-          <div>
-            <IconButton
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={() => {}}
-              color='inherit'
-            >
-              <AccountCircle />
-            </IconButton>
-            {/*
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={open}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={handleClose}>My account</MenuItem>
-                        </Menu>
-                        */}
-          </div>
-        )}
+        <LoginHeadbar />
       </Toolbar>
     </AppBar>
   )
