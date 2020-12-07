@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
-import { usePokemons } from '../api/api'
+import React, { useEffect, useState } from 'react'
+import { usePokemons } from '../api/pokemon'
 import Loader from '../components/template/Loader'
 import styled from 'styled-components'
 import PokemonCard from '../components/pokemon/PokemonCard'
-import Pagination from '@material-ui/lab/Pagination';
+import Pagination from '@material-ui/lab/Pagination'
 
 const Item = styled.li`
   transition: transform .2s;
@@ -14,11 +14,11 @@ const Item = styled.li`
 `
 
 const usePagination = (itemNumber = 0, itemsPerPage = 20) => {
-  const [limit, setItemsPerPage] = useState(itemsPerPage);
+  const [limit, setItemsPerPage] = useState(itemsPerPage)
   const [count, setItemNumber] = useState(itemNumber)
-  const [page, setPage] = useState(1);
-  const [pageCount, setPageCount] = useState(count / limit);
-  const [offset, setOffset] = useState((page - 1) * limit);
+  const [page, setPage] = useState(1)
+  const [pageCount, setPageCount] = useState(count / limit)
+  const [offset, setOffset] = useState((page - 1) * limit)
 
   useEffect(() => {
     setOffset((page - 1) * limit)
@@ -50,8 +50,8 @@ const List = styled.ul`
 `
 
 const PokemonList = () => {
-  const {limit, offset, page, pageCount, onPageChange, setItemNumber} = usePagination()
-  const { data, error } = usePokemons({limit, offset})
+  const { limit, offset, page, pageCount, onPageChange, setItemNumber } = usePagination()
+  const { data, error } = usePokemons({ limit, offset })
 
   useEffect(() => {
     if (data && data.count) {
@@ -65,21 +65,25 @@ const PokemonList = () => {
 
   if (!data) {
     return <Loader />
-
   }
 
   return (
-      <>
-    <List>
-      {data.results.map(pokemon => (
-        <Item key={pokemon.name}>
-          <PokemonCard pokemon={pokemon}/>
-        </Item>
-      ))}
-    </List>
+    <>
+      <List>
+        {data.results.map(pokemon => (
+          <>
+            <Item key={pokemon.name}>
+              <PokemonCard pokemon={pokemon}/>
+            </Item>
+            <Item key={pokemon.name + 2}>
+              <PokemonCard pokemon={{ name: 'aa' }}/>
+            </Item>
+          </>
+        ))}
+      </List>
 
-        <Pagination count={pageCount} page={page} showFirstButton showLastButton size="small" onChange={onPageChange}/>
-        </>
+      <Pagination count={pageCount} page={page} showFirstButton showLastButton size="small" onChange={onPageChange}/>
+    </>
   )
 }
 

@@ -18,7 +18,6 @@ const theme = createMuiTheme({
 })
 
 const ThemeProvider = ({ children }) => {
-  console.log('theme', theme)
   return (
     <MaterialThemeProvider theme={theme}>
       <StyledThemeProvider theme={theme}>

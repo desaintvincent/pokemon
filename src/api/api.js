@@ -3,9 +3,17 @@ import FetchError from './FetchError'
 
 export const fetcher = (resource, init) =>
   fetch(resource, init).then((res) => {
+    // fake auth
+    if (!document.cookie.includes('swr-test-token=swr')) {
+      const error = new FetchError(res)
+      error.status = 403
+      throw error
+    }
+
     if (res.ok) {
       return res.json()
     }
+
     return res
       .text()
       .catch(() => {
@@ -17,17 +25,6 @@ export const fetcher = (resource, init) =>
       })
   })
 
-const useApi = (path = null) => {
+export const useApi = (path = null) => {
   return useSWR(path ? `https://pokeapi.co/api/v2${path}` : null)
-}
-
-export const usePokemon = (name) => {
-  return useApi(`/pokemon/${name}`)
-}
-
-export const usePokemons = ({
-  offset = 0,
-  limit = 20
-} = {}) => {
-  return useApi(`/pokemon/?offset=${offset}&limit=${limit}`)
 }

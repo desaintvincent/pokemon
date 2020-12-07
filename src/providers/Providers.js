@@ -6,7 +6,6 @@ import ThemeProvider from './ThemeProvider'
 const Providers = ({ children }) => {
   return <SWRConfig
     value={{
-      refreshInterval: 3000,
       fetcher
     }}
   >

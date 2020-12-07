@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import ROUTE from '../../routing/constants'
 import Link from '../../routing/Link'
-import { usePokemon } from '../../api/api'
-import Loader from '../template/Loader'
+import { usePokemon } from '../../api/pokemon'
+import { Skeleton as UiSkeleton } from '@material-ui/lab'
+import Typography from '@material-ui/core/Typography'
+import { Chip } from '@material-ui/core'
 
 const colors = {
   fire: '#FDDFDF',
@@ -32,6 +34,7 @@ const Container = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  transition: background-color 2s;
 `
 
 const ImageContainer = styled.div`
@@ -52,14 +55,7 @@ const Infos = styled.div`
   margin-top: 20px;
 `
 
-const Id = styled.span`
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  font-size: 0.8em;
-  padding: 5px 10px;
-`
-
-const Name = styled.h3`
+const Name = styled.div`
   margin: 15px 0 7px;
   letter-spacing: 1px;
   text-transform: capitalize;
@@ -70,39 +66,42 @@ const Type = styled.small`
   letter-spacing: 1px;
 `
 
-const Card = ({ types, id, name }) => (
-  <Container type={types[0]}>
+const Card = ({ type = '', id = '', name = '' }) => (
+  <Container type={type || 'normal'}>
     <ImageContainer>
       <Image src={`https://pokeres.bastionbot.org/images/pokemon/${id}.png`} alt={name}/>
     </ImageContainer>
     <Infos>
-      <Id>#{id.toString().padStart(3, '0')}</Id>
-      <Name>{name}</Name>
-      <Type>Type: <span>{types[0]}</span></Type>
+      {
+        id
+          ? <Chip label={`#${id.toString().padStart(3, '0')}`} />
+          : <UiSkeleton><Chip label="#000"/></UiSkeleton>
+      }
+      <Name>
+        <Typography variant="h6">{name || <UiSkeleton /> }</Typography>
+      </Name>
+      <Type><Typography>{type ? `Type: ${type}` : <UiSkeleton /> }</Typography></Type>
     </Infos>
   </Container>
 )
 
-const PokemonCard = ({ pokemon: { name, type } }) => {
+const PokemonCard = ({ pokemon: { name } }) => {
   const { data, error } = usePokemon(name)
+  const type = useMemo(() => data ? data.types[0].type.name : '', [data])
 
   if (error) {
-    throw error
+    // throw error
   }
 
-  if (!data) {
-    return <Loader />
-  }
-
-  const pokemon = {
-    types: data.types.map(type => type.type.name),
-    id: data.id
-  }
+  const id = data ? data.id : ''
+  const cardName = data ? data.name : ''
 
   return (
-    <Link to={ROUTE.POKEMON} name={name}>
-      <Card types={pokemon.types} id={data.id} name={data.name} />
-    </Link>
+    <>
+      <Link to={ROUTE.POKEMON} name={name}>
+        <Card type={type} id={id} name={cardName} />
+      </Link>
+    </>
   )
 }
 

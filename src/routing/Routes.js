@@ -8,21 +8,26 @@ import {
   Route
 } from 'react-router-dom'
 import Pokemon from '../pages/Pokemon'
+import Login from '../pages/Login'
+import PrivateRoute from './PrivateRoute'
 
 const Routes = () => (
   <Switch>
     <Route path={ROUTE.ABOUT} exact>
       <About />
     </Route>
-    <Route path={ROUTE.POKEMON} exact>
+    <Route path={ROUTE.LOGIN} exact>
+      <Login />
+    </Route>
+    <PrivateRoute path={ROUTE.POKEMON} exact>
       <Pokemon />
-    </Route>
-    <Route path={ROUTE.POKEMONLIST} exact>
+    </PrivateRoute>
+    <PrivateRoute path={ROUTE.POKEMONLIST} exact>
       <PokemonList />
-    </Route>
-    <Route path={ROUTE.HOME} exact>
+    </PrivateRoute>
+    <PrivateRoute path={ROUTE.HOME} exact>
       <Home />
-    </Route>
+    </PrivateRoute>
   </Switch>
 )
 

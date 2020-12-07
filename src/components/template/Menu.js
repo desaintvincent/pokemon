@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider'
 import Link from '../../routing/Link'
 import styled from 'styled-components'
 import ROUTE from '../../routing/constants'
+import { useMe } from '../../api/user'
 
 const IconContainer = styled(ListItemIcon)`
   min-width: 40px;
@@ -34,17 +35,21 @@ const Item = ({ text, icon, to }) => {
 }
 
 const Menu = () => {
+  const { loggedOut } = useMe()
   return (
     <>
       <List>
         <Item icon={<HomeIcon />} text='Home' to={ROUTE.HOME} />
         <Item icon={<InfoIcon />} text='About' to={ROUTE.ABOUT} />
       </List>
-      <Divider />
-      <List>
-
-        <Item icon={<ListIcon />} text='Pokemon list' to={ROUTE.POKEMONLIST} />
-      </List>
+      {
+        !loggedOut && <>
+          <Divider />
+          <List>
+            <Item icon={<ListIcon />} text='Pokemon list' to={ROUTE.POKEMONLIST} />
+          </List>
+        </>
+      }
     </>
   )
 }

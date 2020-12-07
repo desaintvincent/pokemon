@@ -1,5 +1,5 @@
 import React from 'react'
-import { usePokemon } from '../api/api'
+import { usePokemon } from '../api/pokemon'
 import Loader from '../components/template/Loader'
 import { useParams } from 'react-router-dom'
 import { Breadcrumbs } from '@material-ui/core'

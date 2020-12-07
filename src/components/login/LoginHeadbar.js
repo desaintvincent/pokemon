@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
+import { useMe } from '../../api/user'
+import { logout } from '../../auth'
 
 const LoginHeadbar = () => {
-  const [auth] = useState(true)
+  const { loggedOut, refresh } = useMe()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
 
-  if (!auth) {
+  if (loggedOut) {
     return null
   }
 
@@ -20,6 +22,13 @@ const LoginHeadbar = () => {
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  const handleLogout = () => {
+    logout()
+    refresh()
+    setAnchorEl(null)
+  }
+
   return <>
     <IconButton
       aria-label='account of current user'
@@ -46,7 +55,7 @@ const LoginHeadbar = () => {
       onClose={handleClose}
     >
       <MenuItem onClick={handleClose}>Profile</MenuItem>
-      <MenuItem onClick={handleClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   </>
 }

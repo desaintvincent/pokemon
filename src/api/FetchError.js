@@ -1,10 +1,9 @@
 class FetchError extends Error {
-  constructor (response = null, rawBody = '') {
+  constructor (response = {}, rawBody = '') {
     super('FetchError')
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, FetchError)
     }
-    console.log('response', response)
     this.name = 'FetchError'
     this.status = response.status || null
     this.statusText = response.statusText || null
