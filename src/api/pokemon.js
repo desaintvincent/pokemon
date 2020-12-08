@@ -1,7 +1,7 @@
 import { useApi } from './api'
 
 export const usePokemon = (name) => {
-  return useApi(`/pokemon/${name}`)
+  return useApi(name && `/pokemon/${name}`)
 }
 
 export const usePokemons = ({

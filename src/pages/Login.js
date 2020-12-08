@@ -6,6 +6,20 @@ import { Redirect } from 'react-router'
 import { login } from '../auth'
 import Loader from '../components/template/Loader'
 import Button from '../components/ui/Button'
+import {TextField} from "@material-ui/core";
+import styled from "styled-components"
+
+const getFormData = (form) => {
+  return [...(new FormData(form))].reduce((acc, [key, value]) => ({
+    ...acc,
+    [key]: value
+  }), {})
+}
+
+const Input = styled(TextField)`
+    width: 100%;
+  margin-bottom: ${({theme}) => theme.spacing(2)}px;
+`
 
 const Login = () => {
   const { loggedOut, refresh, loading } = useMe()
@@ -18,7 +32,11 @@ const Login = () => {
     return <Redirect to={ROUTE.HOME} />
   }
 
-  const onLogin = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const data = getFormData(e.target)
+    console.log('onSubmit', data)
     login()
     refresh()
   }
@@ -26,12 +44,16 @@ const Login = () => {
   return (
     <>
       <Typography variant="h4">Login</Typography>
-      <Typography paragraph>
+      <form noValidate autoComplete="off" onSubmit={onSubmit}>
+        <Input variant="outlined" name="email" label="Email" />
+        <Input variant="outlined" name="password" label="Password" />
         <Button
-          loading={loading}
-          onClick={onLogin}
-        >Login To Continue</Button>
-      </Typography>
+            type="submit"
+            loading={loading}
+          >
+          Login
+        </Button>
+      </form>
     </>
   )
 }

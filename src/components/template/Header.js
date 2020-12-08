@@ -1,17 +1,17 @@
 import React from 'react'
-import Toolbar from '@material-ui/core/Toolbar'
+import UiToolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import styled from 'styled-components'
-import OriginalAppBar from '@material-ui/core/AppBar'
+import UiAppBar from '@material-ui/core/AppBar'
 import LoginHeadbar from '../login/LoginHeadbar'
 
 const Title = styled(Typography)`
   flex-grow: 1;
 `
 
-const AppBar = styled(OriginalAppBar)`
+const AppBar = styled(UiAppBar)`
   z-index: ${({ theme }) => theme.zIndex.drawer + 1};
   transition: ${({ theme }) => theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -26,6 +26,11 @@ const AppBar = styled(OriginalAppBar)`
     duration: theme.transitions.duration.enteringScreen
 })};
   `};
+`
+
+const Toolbar = styled(UiToolbar)`
+  padding-left: 24px;
+  padding-right: 24px;
 `
 
 const MenuButton = styled(IconButton)`

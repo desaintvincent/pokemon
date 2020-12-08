@@ -63,22 +63,17 @@ const PokemonList = () => {
     return <pre>{JSON.stringify(error, null, 2)}</pre>
   }
 
-  if (!data) {
-    return <Loader />
-  }
-
   return (
     <>
       <List>
-        {data.results.map(pokemon => (
-          <>
+        {data ? data.results.map(pokemon => (
             <Item key={pokemon.name}>
               <PokemonCard pokemon={pokemon}/>
             </Item>
-            <Item key={pokemon.name + 2}>
-              <PokemonCard pokemon={{ name: 'aa' }}/>
+        )) : new Array(limit).fill(0).map((_, i) => (
+            <Item key={i}>
+              <PokemonCard />
             </Item>
-          </>
         ))}
       </List>
 

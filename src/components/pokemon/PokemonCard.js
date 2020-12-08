@@ -34,7 +34,8 @@ const Container = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  transition: background-color 2s;
+  transition: background-color .2s;
+  min-width: 200px;
 `
 
 const ImageContainer = styled.div`
@@ -53,6 +54,9 @@ const Image = styled.img`
 
 const Infos = styled.div`
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 const Name = styled.div`
@@ -69,28 +73,30 @@ const Type = styled.small`
 const Card = ({ type = '', id = '', name = '' }) => (
   <Container type={type || 'normal'}>
     <ImageContainer>
-      <Image src={`https://pokeres.bastionbot.org/images/pokemon/${id}.png`} alt={name}/>
+      {
+        id ? <Image src={`https://pokeres.bastionbot.org/images/pokemon/${id}.png`} alt={name}/> : <UiSkeleton variant="circle" width={120} height={120} animation="wave"/>
+      }
     </ImageContainer>
     <Infos>
       {
         id
           ? <Chip label={`#${id.toString().padStart(3, '0')}`} />
-          : <UiSkeleton><Chip label="#000"/></UiSkeleton>
+          : <UiSkeleton animation="wave"><Chip label="#000"/></UiSkeleton>
       }
       <Name>
-        <Typography variant="h6">{name || <UiSkeleton /> }</Typography>
+        <Typography variant="h6">{name || <UiSkeleton width={100} animation="wave"/> }</Typography>
       </Name>
-      <Type><Typography>{type ? `Type: ${type}` : <UiSkeleton /> }</Typography></Type>
+      <Type><Typography variant="caption">{type ? `Type: ${type}` : <UiSkeleton width={100} animation="wave"/> }</Typography></Type>
     </Infos>
   </Container>
 )
 
-const PokemonCard = ({ pokemon: { name } }) => {
+const PokemonCard = ({ pokemon: { name = ''}  = {} }) => {
   const { data, error } = usePokemon(name)
-  const type = useMemo(() => data ? data.types[0].type.name : '', [data])
+  const type = useMemo(() => data?.types[0]?.type?.name || '', [data])
 
   if (error) {
-    // throw error
+    return null
   }
 
   const id = data ? data.id : ''
