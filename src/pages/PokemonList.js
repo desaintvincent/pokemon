@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { usePokemons } from '../api/pokemon'
-import Loader from '../components/template/Loader'
 import styled from 'styled-components'
 import PokemonCard from '../components/pokemon/PokemonCard'
 import Pagination from '@material-ui/lab/Pagination'
@@ -67,13 +66,13 @@ const PokemonList = () => {
     <>
       <List>
         {data ? data.results.map(pokemon => (
-            <Item key={pokemon.name}>
-              <PokemonCard pokemon={pokemon}/>
-            </Item>
+          <Item key={pokemon.name}>
+            <PokemonCard pokemon={pokemon}/>
+          </Item>
         )) : new Array(limit).fill(0).map((_, i) => (
-            <Item key={i}>
-              <PokemonCard />
-            </Item>
+          <Item key={i}>
+            <PokemonCard />
+          </Item>
         ))}
       </List>
 

@@ -6,8 +6,8 @@ import { Redirect } from 'react-router'
 import { login } from '../auth'
 import Loader from '../components/template/Loader'
 import Button from '../components/ui/Button'
-import {TextField} from "@material-ui/core";
-import styled from "styled-components"
+import { TextField } from '@material-ui/core'
+import styled from 'styled-components'
 
 const getFormData = (form) => {
   return [...(new FormData(form))].reduce((acc, [key, value]) => ({
@@ -18,7 +18,7 @@ const getFormData = (form) => {
 
 const Input = styled(TextField)`
     width: 100%;
-  margin-bottom: ${({theme}) => theme.spacing(2)}px;
+  margin-bottom: ${({ theme }) => theme.spacing(2)}px;
 `
 
 const Login = () => {
@@ -33,7 +33,7 @@ const Login = () => {
   }
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const data = getFormData(e.target)
     console.log('onSubmit', data)
@@ -48,9 +48,9 @@ const Login = () => {
         <Input variant="outlined" name="email" label="Email" />
         <Input variant="outlined" name="password" label="Password" />
         <Button
-            type="submit"
-            loading={loading}
-          >
+          type="submit"
+          loading={loading}
+        >
           Login
         </Button>
       </form>

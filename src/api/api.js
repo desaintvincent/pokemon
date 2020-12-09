@@ -26,5 +26,5 @@ export const fetcher = (resource, init) =>
   })
 
 export const useApi = (path = null) => {
-  return useSWR(path ? `https://pokeapi.co/api/v2${path}` : null)
+  return useSWR(path ? `http://localhost:3333${path}` : null)
 }

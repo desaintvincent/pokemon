@@ -91,7 +91,7 @@ const Card = ({ type = '', id = '', name = '' }) => (
   </Container>
 )
 
-const PokemonCard = ({ pokemon: { name = ''}  = {} }) => {
+const PokemonCard = ({ pokemon: { name = '' } = {} }) => {
   const { data, error } = usePokemon(name)
   const type = useMemo(() => data?.types[0]?.type?.name || '', [data])
 
