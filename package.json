@@ -39,7 +39,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src/** ./server/**",
     "fix": "eslint ./src/** ./server/** --fix",
-    "server": "nodemon ./server/server.js"
+    "serv": "nodemon ./server/server.js"
   },
   "browserslist": [
     ">0.2%",

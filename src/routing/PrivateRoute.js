@@ -12,9 +12,6 @@ const PrivateRoute = ({ children, ...props }) => {
     return <Loader />
   }
 
-  if (loggedOut) {
-    return <Redirect to={ROUTE.LOGIN} />
-  }
   return (
     <Route {...props}>
       {children}

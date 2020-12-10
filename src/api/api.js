@@ -2,26 +2,19 @@ import useSWR from 'swr'
 import FetchError from './FetchError'
 
 export const fetcher = (resource, init) =>
-  fetch(resource, init).then((res) => {
-    // fake auth
-    if (!document.cookie.includes('swr-test-token=swr')) {
-      const error = new FetchError(res)
-      error.status = 403
-      throw error
+  fetch(resource, init).then((response) => {
+    if (response.ok) {
+      return response.json()
     }
 
-    if (res.ok) {
-      return res.json()
-    }
-
-    return res
+    return response
       .text()
       .catch(() => {
-        throw new FetchError(res)
+        throw new FetchError(response)
       })
       .then((text) => {
         console.log('text', text)
-        throw new FetchError(res, text)
+        throw new FetchError(response, text)
       })
   })
 
