@@ -2,7 +2,6 @@ import React from 'react'
 import UiToolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
 import styled from 'styled-components'
 import UiAppBar from '@material-ui/core/AppBar'
 import LoginHeadbar from '../login/LoginHeadbar'
@@ -12,6 +11,10 @@ const Title = styled(Typography)`
 `
 
 const AppBar = styled(UiAppBar)`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
   z-index: ${({ theme }) => theme.zIndex.drawer + 1};
   transition: ${({ theme }) => theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -19,8 +22,8 @@ const AppBar = styled(UiAppBar)`
 })};
   
   ${props => props.open && `
-    margin-left: ${props.theme.drawerWidth}px;
-    width: calc(100% - ${props.theme.drawerWidth}px);
+    margin-left: ${props.theme.drawer.open}px;
+    width: calc(100% - ${props.theme.drawer.open}px);
     transition: ${({ theme }) => theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen
@@ -33,24 +36,10 @@ const Toolbar = styled(UiToolbar)`
   padding-right: 24px;
 `
 
-const MenuButton = styled(IconButton)`
-  margin-right: 36px;
-  display: ${({ open }) => open ? 'none' : 'block'};
-`
-
-export default function Header ({ open = false, handleDrawerOpen }) {
+export default function Header () {
   return (
-    <AppBar open={open}>
+    <AppBar color='transparent' position='relative'>
       <Toolbar position='fixed'>
-        <MenuButton
-          color='inherit'
-          aria-label='open drawer'
-          onClick={handleDrawerOpen}
-          open={open}
-          edge='start'
-        >
-          <MenuIcon />
-        </MenuButton>
         <Title variant='h6'>
                     Title
         </Title>

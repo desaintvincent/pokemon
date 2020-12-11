@@ -4,6 +4,7 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 
 const Content = styled.main`
+  position: relative;
   padding: ${({ theme }) => theme.spacing(3)}px;
   flex: 1;
 `
@@ -22,21 +23,11 @@ const Root = styled.div`
 `
 
 const Template = ({ children }) => {
-  const [open, setOpen] = React.useState(false)
-
-  const handleDrawerOpen = () => {
-    setOpen(true)
-  }
-
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
-
   return (
     <Root>
-      <Header open={open} handleDrawerOpen={handleDrawerOpen} />
-      <Sidebar handleDrawerClose={handleDrawerClose} open={open} />
+      <Sidebar />
       <Content>
+        <Header/>
         <ContentOffset />
         {children}
       </Content>

@@ -4,25 +4,38 @@ import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import GlobalStyle from '../components/template/GlobalStyle'
 import CssBaseline from '@material-ui/core/CssBaseline'
-
-const theme = createMuiTheme({
-  drawerWidth: 240,
-  palette: {
-    primary: {
-      main: '#03ccb9'
-    },
-    secondary: {
-      main: '#4c3e72'
-    }
-  }
-})
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const ThemeProvider = ({ children }) => {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+
+  const theme = React.useMemo(
+    () =>
+      createMuiTheme({
+        drawer: {
+          closed: 60,
+          open: 240
+        },
+
+        status: {
+          danger: '#e53e3e',
+        },
+        palette: {
+          primary: {
+            main: '#03ccb9'
+          },
+          secondary: {
+            main: '#4c3e72'
+          },
+        }
+      }),
+    [prefersDarkMode],
+  )
   return (
     <MaterialThemeProvider theme={theme}>
       <StyledThemeProvider theme={theme}>
-        <CssBaseline />
-        <GlobalStyle />
+        <CssBaseline/>
+        <GlobalStyle/>
         {children}
       </StyledThemeProvider>
     </MaterialThemeProvider>

@@ -1,37 +1,32 @@
 import React from 'react'
-import clsx from 'clsx'
-import IconButton from '@material-ui/core/IconButton'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import Divider from '@material-ui/core/Divider'
-import Drawer from '@material-ui/core/Drawer'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import UIIconButton from '@material-ui/core/IconButton'
+import UiDrawer from '@material-ui/core/Drawer'
 import styled from 'styled-components'
 import Menu from './Menu'
+import MenuIcon from '@material-ui/icons/Menu'
+import MenuOpenIcon from '@material-ui/icons/MenuOpen'
 
-const useStyles = makeStyles((theme) => ({
-  drawer: {
-    height: '100vh',
-    width: theme.drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap'
-  },
-  drawerOpen: {
-    width: theme.drawerWidth,
-    transition: theme.transitions.create('width', {
+const Drawer = styled(UiDrawer)`
+  height: 100vh;
+  flex-shrink: 0;
+  white-space: nowrap;
+  width: ${props => props.open ? props.theme.drawer.open : props.theme.drawer.closed}px;
+
+  transition: ${({ theme }) => theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen
+  })};
+  
+  > div {
+    width: ${props => props.open ? props.theme.drawer.open : props.theme.drawer.closed}px;
+    background-color: ${props => props.theme.palette.primary.main};
+    overflow-x: hidden;
+    transition: ${({ theme }) => theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  drawerClose: {
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    overflowX: 'hidden',
-    width: theme.spacing(9) + 1
+    })};
   }
-}))
+`
 
 const ToolbarHeader = styled.div`
   display: flex;
@@ -41,30 +36,26 @@ const ToolbarHeader = styled.div`
   ${({ theme }) => (theme.mixins.toolbar)};
 `
 
-const Sidebar = ({ handleDrawerClose, open }) => {
-  const classes = useStyles()
-  const theme = useTheme()
+const IconButton = styled(UIIconButton)`
+  width: ${props => props.theme.drawer.closed}px;
+  height: 100%;
+  border-radius: 0;
+`
+
+const Sidebar = () => {
+  const [open, setOpen] = React.useState(false)
+
+  const toogleSidebar = () => {
+    setOpen(_open => !_open)
+  }
 
   return (
-    <Drawer
-      variant='permanent'
-      className={clsx(classes.drawer, {
-        [classes.drawerOpen]: open,
-        [classes.drawerClose]: !open
-      })}
-      classes={{
-        paper: clsx({
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open
-        })
-      }}
-    >
+    <Drawer open={open} variant='permanent'>
       <ToolbarHeader>
-        <IconButton onClick={handleDrawerClose}>
-          {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        <IconButton onClick={toogleSidebar}>
+          {open ? <MenuOpenIcon color="white.main"/> : <MenuIcon color="white"/>}
         </IconButton>
       </ToolbarHeader>
-      <Divider />
       <Menu />
     </Drawer>
   )

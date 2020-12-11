@@ -9,7 +9,6 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "body-parser": "^1.19.0",
-    "clx": "^1.0.0",
     "eslint-config-standard-react": "11.0.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

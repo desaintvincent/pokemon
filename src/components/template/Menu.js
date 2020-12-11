@@ -14,8 +14,8 @@ import ROUTE from '../../routing/constants'
 import { useMe } from '../../api/user'
 
 const IconContainer = styled(ListItemIcon)`
-  min-width: 40px;
-  width: 40px;
+  width: ${props => props.theme.drawer.closed - 16 * 2}px;
+  min-width: ${props => props.theme.drawer.closed - 16 * 2}px;
   display: flex;
   justify-content: center;
 `
@@ -24,11 +24,11 @@ const TextContainer = styled(ListItemText)`
   margin-left: 16px;
 `
 
-const Item = ({ text, icon, to }) => {
+const Item = ({ text, Icon, to }) => {
   return (
     <Link to={to}>
       <ListItem button key={text}>
-        <IconContainer>{icon}</IconContainer>
+        <IconContainer><Icon color="white"/></IconContainer>
         <TextContainer primary={text} />
       </ListItem>
     </Link>
@@ -40,15 +40,15 @@ const Menu = () => {
   return (
     <>
       <List>
-        <Item icon={<HomeIcon />} text='Home' to={ROUTE.HOME} />
-        <Item icon={<InfoIcon />} text='About' to={ROUTE.ABOUT} />
+        <Item Icon={HomeIcon} text='Home' to={ROUTE.HOME} />
+        <Item Icon={InfoIcon} text='About' to={ROUTE.ABOUT} />
       </List>
       {
         !loggedOut && <>
           <Divider />
           <List>
-            <Item icon={<TabIcon />} text='Tabs' to={ROUTE.TABS} />
-            <Item icon={<ListIcon />} text='Pokemon list' to={ROUTE.POKEMONLIST} />
+            <Item icon={TabIcon} text='Tabs' to={ROUTE.TABS} />
+            <Item Icon={ListIcon} text='Pokemon list' to={ROUTE.POKEMONLIST} />
           </List>
         </>
       }
