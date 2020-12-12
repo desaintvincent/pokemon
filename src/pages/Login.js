@@ -1,61 +1,113 @@
-import React from 'react'
-import { useMe } from '../api/user'
-import Typography from '@material-ui/core/Typography'
-import ROUTE from '../routing/constants'
-import { Redirect } from 'react-router'
-import { login } from '../auth'
-import Loader from '../components/template/Loader'
-import Button from '../components/ui/Button'
-import { TextField } from '@material-ui/core'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Button from "../components/ui/Button";
+import loginImage from "../assets/img/login.svg"
 
-const getFormData = (form) => {
-  return [...(new FormData(form))].reduce((acc, [key, value]) => ({
-    ...acc,
-    [key]: value
-  }), {})
-}
-
-const Input = styled(TextField)`
-    width: 100%;
-  margin-bottom: ${({ theme }) => theme.spacing(2)}px;
+const Container = styled(Grid)`
+  height: 100vh;
 `
 
-const Login = () => {
-  const { loggedOut, refresh, loading } = useMe()
+const breakpoint = (size, css) => props => `${props.theme.breakpoints.up(size)} {
+      ${css}
+    }
+  `
 
-  if (loading) {
-    return <Loader />
-  }
+const getFormData = (form) => {
+    return [...(new FormData(form))].reduce((acc, [key, value]) => ({
+        ...acc,
+        [key]: value
+    }), {})
+}
 
-  if (!loggedOut) {
-    return <Redirect to={ROUTE.HOME} />
-  }
+const Left = styled(Grid)`
+  display: none;
+  ${breakpoint('md', `
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  `)}
+`
 
-  const onSubmit = (e) => {
-    e.preventDefault()
+const Img = styled.img`
+  width: 100%;
+  transform: translate(20%);
+`
 
-    const data = getFormData(e.target)
-    console.log('onSubmit', data)
-    login()
-    refresh()
-  }
+const Right = styled(Grid)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+`
 
-  return (
-    <>
-      <Typography variant="h4">Login</Typography>
-      <form noValidate autoComplete="off" onSubmit={onSubmit}>
-        <Input variant="outlined" name="email" label="Email" />
-        <Input variant="outlined" name="password" label="Password" />
-        <Button
-          type="submit"
-          loading={loading}
-        >
-          Login
-        </Button>
-      </form>
-    </>
-  )
+const ForgotPassword = styled.div`
+  text-align: right;
+`
+
+function Login() {
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const data = getFormData(e.target)
+        console.log(data)
+    }
+
+    return (
+        <Container container component="main">
+            <Left item xs={false} sm={false} md={6}>
+                <Img src={loginImage}/>
+            </Left>
+            <Right item xs={12} md={6} component={Paper} square>
+                <Typography component="h1" variant="h3">
+                    Login
+                </Typography>
+                <form noValidate onSubmit={onSubmit}>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                    />
+                    <ForgotPassword>
+                        <Link href="#" variant="body2">
+                            Forgot password?
+                        </Link>
+                    </ForgotPassword>
+                    <Box mt={5}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                        >
+                            Login
+                        </Button>
+                    </Box>
+                </form>
+            </Right>
+        </Container>
+    );
 }
 
 export default Login

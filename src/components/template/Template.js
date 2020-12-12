@@ -5,7 +5,7 @@ import Sidebar from './Sidebar'
 
 const Content = styled.main`
   position: relative;
-  padding: ${({ theme }) => theme.spacing(3)}px;
+  padding: ${({theme}) => theme.spacing(3)}px;
   flex: 1;
 `
 
@@ -13,8 +13,8 @@ const ContentOffset = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: ${({ theme }) => theme.spacing(0.1)}px;
-  ${({ theme }) => (theme.mixins.toolbar)};
+  padding: ${({theme}) => theme.spacing(0.1)}px;
+  ${({theme}) => (theme.mixins.toolbar)};
 `
 
 const Root = styled.div`
@@ -22,17 +22,32 @@ const Root = styled.div`
   flex-direction: row;
 `
 
-const Template = ({ children }) => {
-  return (
-    <Root>
-      <Sidebar />
-      <Content>
-        <Header/>
-        <ContentOffset />
-        {children}
-      </Content>
-    </Root>
-  )
+const Template = ({children}) => {
+    const template = false
+    const [open, setOpen] = React.useState(true)
+
+    const toogleSidebar = () => {
+        setOpen(_open => !_open)
+    }
+
+    if (template) {
+        return (
+            <Root>
+                <Header open={open}/>
+                <Sidebar toogleSidebar={toogleSidebar} open={open}/>
+                <Content>
+                    <ContentOffset/>
+                    {children}
+                </Content>
+            </Root>
+        )
+    }
+
+    return (
+        <Root>
+            {children}
+        </Root>
+    )
 }
 
 export default Template

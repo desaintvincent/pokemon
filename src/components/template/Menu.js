@@ -18,10 +18,12 @@ const IconContainer = styled(ListItemIcon)`
   min-width: ${props => props.theme.drawer.closed - 16 * 2}px;
   display: flex;
   justify-content: center;
+  color: ${props => props.theme.white};
 `
 
 const TextContainer = styled(ListItemText)`
   margin-left: 16px;
+  color: ${props => props.theme.white};
 `
 
 const Item = ({ text, Icon, to }) => {

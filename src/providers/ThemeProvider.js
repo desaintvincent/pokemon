@@ -16,16 +16,15 @@ const ThemeProvider = ({ children }) => {
           closed: 60,
           open: 240
         },
-
-        status: {
-          danger: '#e53e3e',
-        },
+        white: '#eee',
+        black: '#333',
         palette: {
+            type: 'light', // prefersDarkMode ? 'dark' : 'light',
           primary: {
             main: '#03ccb9'
           },
           secondary: {
-            main: '#4c3e72'
+            main: '#f50057'
           },
         }
       }),

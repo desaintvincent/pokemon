@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import Menu from './Menu'
 import MenuIcon from '@material-ui/icons/Menu'
 import MenuOpenIcon from '@material-ui/icons/MenuOpen'
+import logo from '../icons/logo.svg'
+import Link from "../../routing/Link";
+import ROUTE from "../../routing/constants";
 
 const Drawer = styled(UiDrawer)`
   height: 100vh;
@@ -40,20 +43,29 @@ const IconButton = styled(UIIconButton)`
   width: ${props => props.theme.drawer.closed}px;
   height: 100%;
   border-radius: 0;
+  color: ${props=> props.theme.white};
 `
 
-const Sidebar = () => {
-  const [open, setOpen] = React.useState(false)
-
-  const toogleSidebar = () => {
-    setOpen(_open => !_open)
+const Logo = styled.div`
+    height: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  
+  img {
+    width: 100%;
   }
+`
 
+const Sidebar = ({open, toogleSidebar}) => {
   return (
     <Drawer open={open} variant='permanent'>
       <ToolbarHeader>
+          <Link to={ROUTE.HOME}>
+              <Logo><img src={logo} alt="logo"/></Logo>
+          </Link>
         <IconButton onClick={toogleSidebar}>
-          {open ? <MenuOpenIcon color="white.main"/> : <MenuIcon color="white"/>}
+          {open ? <MenuOpenIcon /> : <MenuIcon />}
         </IconButton>
       </ToolbarHeader>
       <Menu />

@@ -1,7 +1,6 @@
 import React from 'react'
 import UiToolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
 import styled from 'styled-components'
 import UiAppBar from '@material-ui/core/AppBar'
 import LoginHeadbar from '../login/LoginHeadbar'
@@ -11,23 +10,17 @@ const Title = styled(Typography)`
 `
 
 const AppBar = styled(UiAppBar)`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: ${({ theme }) => theme.zIndex.drawer + 1};
+  margin-left: ${props => props.theme.drawer.closed}px;
+  width: calc(100% - ${props =>props.theme.drawer.closed}px);
+  z-index: ${({theme}) => theme.zIndex.drawer + 1};
   transition: ${({ theme }) => theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
-})};
-  
+    duration: theme.transitions.duration.enteringScreen
+  })};
+
   ${props => props.open && `
     margin-left: ${props.theme.drawer.open}px;
     width: calc(100% - ${props.theme.drawer.open}px);
-    transition: ${({ theme }) => theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen
-})};
   `};
 `
 
@@ -36,15 +29,13 @@ const Toolbar = styled(UiToolbar)`
   padding-right: 24px;
 `
 
-export default function Header () {
-  return (
-    <AppBar color='transparent' position='relative'>
-      <Toolbar position='fixed'>
-        <Title variant='h6'>
-                    Title
-        </Title>
-        <LoginHeadbar />
-      </Toolbar>
-    </AppBar>
-  )
+export default function Header({open}) {
+    return (
+        <AppBar position="fixed" open={open} color="white">
+            <Toolbar>
+                <Title variant='h6'>Title</Title>
+                <LoginHeadbar/>
+            </Toolbar>
+        </AppBar>
+    )
 }
