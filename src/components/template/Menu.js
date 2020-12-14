@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider'
 import Link from '../../routing/Link'
 import styled from 'styled-components'
 import ROUTE from '../../routing/constants'
-import { useMe } from '../../api/user'
+import useAuth from '../../api/auth'
 
 const IconContainer = styled(ListItemIcon)`
   width: ${props => props.theme.drawer.closed - 16 * 2}px;
@@ -38,7 +38,7 @@ const Item = ({ text, Icon, to }) => {
 }
 
 const Menu = () => {
-  const { loggedOut } = useMe()
+  const { logged } = useAuth()
   return (
     <>
       <List>
@@ -46,7 +46,7 @@ const Menu = () => {
         <Item Icon={InfoIcon} text='About' to={ROUTE.ABOUT} />
       </List>
       {
-        !loggedOut && <>
+        logged && <>
           <Divider />
           <List>
             <Item icon={TabIcon} text='Tabs' to={ROUTE.TABS} />

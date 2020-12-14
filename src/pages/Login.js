@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '../components/ui/Button'
 import loginImage from '../assets/img/login.svg'
 import useSubmit from '../api/useSubmit'
-import { useSnackbar } from 'notistack'
+import { useSnack } from '../providers/SnackProvider'
 
 const Container = styled(Grid)`
   height: 100vh;
@@ -54,14 +54,15 @@ const ForgotPassword = styled.div`
 `
 
 function Login () {
-  const { loading } = useSubmit()
-  const { enqueueSnackbar } = useSnackbar()
+  const { submitting, submit } = useSubmit()
+  const snack = useSnack()
 
   const onSubmit = (e) => {
     e.preventDefault()
     const data = getFormData(e.target)
     console.log(data)
-    enqueueSnackbar('I love hooks', { variant: 'success' })
+    submit(data)
+    snack(data.email)
   }
 
   return (
@@ -103,7 +104,7 @@ function Login () {
           </ForgotPassword>
           <Box mt={5}>
             <Button
-              loading={loading}
+              loading={submitting}
               type="submit"
             >
               Login

@@ -1,11 +1,17 @@
 import { useState } from 'react'
 
 const useSubmit = () => {
-  const [loading, setLoading] = useState(false)
-  const onSubmit = () => {}
+  const [submitting, setSubmitting] = useState(false)
+  const submit = (data) => {
+    setSubmitting(true)
+    console.log('submit', data)
+    setTimeout(() => {
+      setSubmitting(false)
+    }, 500)
+  }
   return {
-    loading,
-    onSubmit
+    submitting,
+    submit
   }
 }
 

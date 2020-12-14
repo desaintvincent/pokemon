@@ -3,15 +3,14 @@ import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
-import { useMe } from '../../api/user'
-import { logout } from '../../auth'
+import useAuth from '../../api/auth'
 
 const LoginHeadbar = () => {
-  const { loggedOut, refresh } = useMe()
+  const { logged } = useAuth()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
 
-  if (loggedOut) {
+  if (!logged) {
     return null
   }
 
@@ -24,8 +23,6 @@ const LoginHeadbar = () => {
   }
 
   const handleLogout = () => {
-    logout()
-    refresh()
     setAnchorEl(null)
   }
 

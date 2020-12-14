@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { post } from './api'
 
 const useAuth = () => {
   const [loading, setLoading] = useState(true)
@@ -6,7 +7,7 @@ const useAuth = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setLogged(false)
+      setLogged(true)
       setLoading(false)
     }, 500)
   }, [])
@@ -17,4 +18,7 @@ const useAuth = () => {
   }
 }
 
+const login = (data) => post('/login', data)
+
 export default useAuth
+export { login }
