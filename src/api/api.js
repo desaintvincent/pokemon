@@ -24,5 +24,5 @@ const useApi = (path = null) => {
 
 export {
   fetcher,
-  useApi,
+  useApi
 }

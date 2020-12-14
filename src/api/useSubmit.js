@@ -5,7 +5,7 @@ const useSubmit = () => {
   const onSubmit = () => {}
   return {
     loading,
-    onSubmit,
+    onSubmit
   }
 }
 

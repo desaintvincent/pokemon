@@ -18,7 +18,7 @@ const Providers = ({ children }) => {
       <SnackbarProvider
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'right'
         }} ref={notistackRef}
         action={(key) => (
           <button onClick={onClickDismiss(key)}>

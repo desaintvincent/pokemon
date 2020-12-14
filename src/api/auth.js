@@ -13,8 +13,8 @@ const useAuth = () => {
 
   return {
     loading,
-    logged,
+    logged
   }
 }
 
-export default useAuth;
+export default useAuth

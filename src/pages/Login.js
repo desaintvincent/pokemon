@@ -61,7 +61,7 @@ function Login () {
     e.preventDefault()
     const data = getFormData(e.target)
     console.log(data)
-    enqueueSnackbar('I love hooks', {variant: 'success'})
+    enqueueSnackbar('I love hooks', { variant: 'success' })
   }
 
   return (
