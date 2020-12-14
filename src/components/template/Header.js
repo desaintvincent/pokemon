@@ -10,9 +10,10 @@ const Title = styled(Typography)`
 `
 
 const AppBar = styled(UiAppBar)`
+  background-color: ${props => props.theme.white};
   margin-left: ${props => props.theme.drawer.closed}px;
-  width: calc(100% - ${props =>props.theme.drawer.closed}px);
-  z-index: ${({theme}) => theme.zIndex.drawer + 1};
+  width: calc(100% - ${props => props.theme.drawer.closed}px);
+  z-index: ${({ theme }) => theme.zIndex.drawer + 1};
   transition: ${({ theme }) => theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen
@@ -29,13 +30,13 @@ const Toolbar = styled(UiToolbar)`
   padding-right: 24px;
 `
 
-export default function Header({open}) {
-    return (
-        <AppBar position="fixed" open={open} color="white">
-            <Toolbar>
-                <Title variant='h6'>Title</Title>
-                <LoginHeadbar/>
-            </Toolbar>
-        </AppBar>
-    )
+export default function Header ({ open }) {
+  return (
+    <AppBar position="fixed" open={open}>
+      <Toolbar>
+        <Title variant='h6'>Title</Title>
+        <LoginHeadbar/>
+      </Toolbar>
+    </AppBar>
+  )
 }

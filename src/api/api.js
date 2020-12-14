@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import FetchError from './FetchError'
 
-export const fetcher = (resource, init) =>
+const fetcher = (resource, init) =>
   fetch(resource, init).then((response) => {
     if (response.ok) {
       return response.json()
@@ -18,6 +18,11 @@ export const fetcher = (resource, init) =>
       })
   })
 
-export const useApi = (path = null) => {
+const useApi = (path = null) => {
   return useSWR(path ? `http://localhost:3333${path}` : null)
+}
+
+export {
+  fetcher,
+  useApi,
 }

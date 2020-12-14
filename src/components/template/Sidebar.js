@@ -6,8 +6,8 @@ import Menu from './Menu'
 import MenuIcon from '@material-ui/icons/Menu'
 import MenuOpenIcon from '@material-ui/icons/MenuOpen'
 import logo from '../icons/logo.svg'
-import Link from "../../routing/Link";
-import ROUTE from "../../routing/constants";
+import Link from '../../routing/Link'
+import ROUTE from '../../routing/constants'
 
 const Drawer = styled(UiDrawer)`
   height: 100vh;
@@ -43,7 +43,7 @@ const IconButton = styled(UIIconButton)`
   width: ${props => props.theme.drawer.closed}px;
   height: 100%;
   border-radius: 0;
-  color: ${props=> props.theme.white};
+  color: ${props => props.theme.white};
 `
 
 const Logo = styled.div`
@@ -57,13 +57,13 @@ const Logo = styled.div`
   }
 `
 
-const Sidebar = ({open, toogleSidebar}) => {
+const Sidebar = ({ open, toogleSidebar }) => {
   return (
     <Drawer open={open} variant='permanent'>
       <ToolbarHeader>
-          <Link to={ROUTE.HOME}>
-              <Logo><img src={logo} alt="logo"/></Logo>
-          </Link>
+        <Link to={ROUTE.HOME}>
+          <Logo><img src={logo} alt="logo"/></Logo>
+        </Link>
         <IconButton onClick={toogleSidebar}>
           {open ? <MenuOpenIcon /> : <MenuIcon />}
         </IconButton>

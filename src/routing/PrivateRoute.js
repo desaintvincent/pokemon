@@ -1,13 +1,30 @@
-import { Route } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import React from 'react'
-import { useMe } from '../api/user'
 import Loader from '../components/template/Loader'
+import styled from 'styled-components'
+import useAuth from '../api/auth'
+import ROUTE from './constants'
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`
 
 const PrivateRoute = ({ children, ...props }) => {
-  const { loading } = useMe()
+  const { loading, logged } = useAuth()
 
   if (loading) {
-    return <Loader />
+    return (
+      <LoadingContainer>
+        <Loader />
+      </LoadingContainer>
+    )
+  }
+
+  if (!logged) {
+    return <Redirect to={ROUTE.LOGIN} />
   }
 
   return (

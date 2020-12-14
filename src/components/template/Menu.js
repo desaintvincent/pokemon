@@ -30,7 +30,7 @@ const Item = ({ text, Icon, to }) => {
   return (
     <Link to={to}>
       <ListItem button key={text}>
-        <IconContainer><Icon color="white"/></IconContainer>
+        <IconContainer><Icon /></IconContainer>
         <TextContainer primary={text} />
       </ListItem>
     </Link>

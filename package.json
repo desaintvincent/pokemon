@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.6",
+    "notistack": "^1.0.2",
     "react": "17.0.0",
     "react-dom": "17.0.0",
     "react-router": "^5.2.0",
@@ -36,8 +37,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src/** ./server/**",
-    "fix": "eslint ./src/** ./server/** --fix",
+    "lint": "eslint ./src/** ./server/** --no-error-on-unmatched-pattern",
+    "fix": "eslint ./src/** ./server/** --fix --no-error-on-unmatched-pattern",
     "serv": "nodemon ./server/server.js"
   },
   "browserslist": [

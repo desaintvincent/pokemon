@@ -19,16 +19,16 @@ const ThemeProvider = ({ children }) => {
         white: '#eee',
         black: '#333',
         palette: {
-            type: 'light', // prefersDarkMode ? 'dark' : 'light',
+          type: prefersDarkMode ? 'dark' : 'light',
           primary: {
             main: '#03ccb9'
           },
           secondary: {
             main: '#f50057'
-          },
+          }
         }
       }),
-    [prefersDarkMode],
+    [prefersDarkMode]
   )
   return (
     <MaterialThemeProvider theme={theme}>
