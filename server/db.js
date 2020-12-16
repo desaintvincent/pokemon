@@ -1,13 +1,15 @@
 module.exports.users = [
   {
     id: '1',
+    email: 'john@gmail.com',
     username: 'john',
-    password: 'password123admin',
+    password: 'bob',
     role: 'admin'
   }, {
     id: '2',
+    email: 'anna@gmail.com',
     username: 'anna',
-    password: 'password123member',
+    password: 'bob',
     role: 'member'
   }
 ]

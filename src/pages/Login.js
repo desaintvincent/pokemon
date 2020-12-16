@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '../components/ui/Button'
 import loginImage from '../assets/img/login.svg'
 import useSubmit from '../api/useSubmit'
-import { useSnack } from '../providers/SnackProvider'
+import { login } from '../api/auth'
 
 const Container = styled(Grid)`
   height: 100vh;
@@ -54,15 +54,13 @@ const ForgotPassword = styled.div`
 `
 
 function Login () {
-  const { submitting, submit } = useSubmit()
-  const snack = useSnack()
+  const { submitting, submit } = useSubmit(login)
 
   const onSubmit = (e) => {
     e.preventDefault()
     const data = getFormData(e.target)
     console.log(data)
     submit(data)
-    snack(data.email)
   }
 
   return (

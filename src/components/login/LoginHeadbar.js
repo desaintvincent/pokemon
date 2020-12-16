@@ -4,14 +4,30 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import useAuth from '../../api/auth'
+import { useHistory } from 'react-router'
+import ROUTE from '../../routing/constants'
 
 const LoginHeadbar = () => {
   const { logged } = useAuth()
+  const history = useHistory()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
 
+  const goToLoginPage = () => {
+    history.push(ROUTE.LOGIN)
+  }
+
   if (!logged) {
-    return null
+    return (
+      <IconButton
+        aria-controls='menu-appbar'
+        aria-haspopup='true'
+        onClick={goToLoginPage}
+        color='inherit'
+      >
+        <AccountCircle />
+      </IconButton>
+    )
   }
 
   const handleMenu = (event) => {

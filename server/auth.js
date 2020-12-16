@@ -14,13 +14,13 @@ function createToken (user, shouldExpire = true) {
 }
 
 routerAuth.post('/login', (req, res) => {
-  const { username, password } = req.body
+  const { email, password } = req.body
 
   // Filter user from the users array by username and password
-  const user = users.find(u => { return u.username === username && u.password === password })
+  const user = users.find(u => { return u.email === email && u.password === password })
 
   if (!user) {
-    res.send('Username or password incorrect')
+    return res.sendStatus(403)
   }
 
   const accessToken = createToken(user)

@@ -7,7 +7,7 @@ const useAuth = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setLogged(true)
+      setLogged(false)
       setLoading(false)
     }, 500)
   }, [])
