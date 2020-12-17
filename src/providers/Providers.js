@@ -3,16 +3,19 @@ import { fetcher } from '../api/api'
 import { SWRConfig } from 'swr'
 import ThemeProvider from './ThemeProvider'
 import SnackProvider from './SnackProvider'
+import AuthProvider from './AuthProvider'
 
 const Providers = ({ children }) => {
   return (
-    <SWRConfig value={{ fetcher }}>
-      <ThemeProvider>
-        <SnackProvider>
-          {children}
-        </SnackProvider>
-      </ThemeProvider>
-    </SWRConfig>
+    <AuthProvider>
+      <SWRConfig value={{ fetcher }}>
+        <ThemeProvider>
+          <SnackProvider>
+            {children}
+          </SnackProvider>
+        </ThemeProvider>
+      </SWRConfig>
+    </AuthProvider>
   )
 }
 

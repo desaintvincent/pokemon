@@ -11,6 +11,12 @@ module.exports.users = [
     username: 'anna',
     password: 'bob',
     role: 'member'
+  }, {
+    id: '3',
+    email: 'thomas.rdsv@viaco.fr',
+    username: 'thomas',
+    password: 'bob',
+    role: 'admin'
   }
 ]
 

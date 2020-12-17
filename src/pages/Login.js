@@ -10,6 +10,8 @@ import Button from '../components/ui/Button'
 import loginImage from '../assets/img/login.svg'
 import useSubmit from '../api/useSubmit'
 import { login } from '../api/auth'
+import ROUTE from '../routing/constants'
+import { useHistory } from 'react-router'
 
 const Container = styled(Grid)`
   height: 100vh;
@@ -53,15 +55,30 @@ const ForgotPassword = styled.div`
   text-align: right;
 `
 
-function Login () {
+const useLogin = () => {
   const { submitting, submit } = useSubmit(login)
+  const history = useHistory()
 
-  const onSubmit = (e) => {
+  const onLoginSubmit = (e) => {
     e.preventDefault()
     const data = getFormData(e.target)
-    console.log(data)
-    submit(data)
+    submit(data).then(({data}) => {
+      if (!data) {
+        return
+      }
+      const { accessToken, refreshToken } = data
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      history.push(ROUTE.HOME)
+      console.log("data", data)
+    })
   }
+
+  return { submitting, submit: onLoginSubmit }
+}
+
+function Login () {
+  const { submitting, submit } = useLogin()
 
   return (
     <Container container component="main">
@@ -72,7 +89,7 @@ function Login () {
         <Typography component="h1" variant="h3">
           Login
         </Typography>
-        <form noValidate onSubmit={onSubmit}>
+        <form noValidate onSubmit={submit}>
           <TextField
             variant="outlined"
             margin="normal"

@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { SNACK, useSnack } from '../providers/SnackProvider'
 const useSubmit = (promise, params = {}) => {
   const {
-    successMessage = 'success',
-    failureMessage = 'error'
+    successMessage = 'app.success',
+    failureMessage = 'app.error'
   } = params
 
   const [submitting, setSubmitting] = useState(false)
@@ -13,14 +13,18 @@ const useSubmit = (promise, params = {}) => {
     setSubmitting(true)
     return promise(data)
       .then(result => {
-        console.log('result', result)
         setSubmitting(false)
-        snack(successMessage)
+        if (successMessage) {
+          snack(successMessage)
+        }
+        return { data: result, error: undefined }
       })
       .catch(error => {
-        console.log('error', error)
         setSubmitting(false)
-        snack(failureMessage, SNACK.ERROR)
+        if (failureMessage) {
+          snack(failureMessage, SNACK.ERROR)
+        }
+        return { data: undefined, error: error }
       })
   }
   return {

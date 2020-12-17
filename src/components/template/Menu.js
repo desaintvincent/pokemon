@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider'
 import Link from '../../routing/Link'
 import styled from 'styled-components'
 import ROUTE from '../../routing/constants'
-import useAuth from '../../api/auth'
+import { useAuth } from '../../providers/AuthProvider'
 
 const IconContainer = styled(ListItemIcon)`
   width: ${props => props.theme.drawer.closed - 16 * 2}px;

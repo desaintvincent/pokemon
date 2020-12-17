@@ -3,9 +3,9 @@ import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
-import useAuth from '../../api/auth'
 import { useHistory } from 'react-router'
 import ROUTE from '../../routing/constants'
+import { useAuth } from '../../providers/AuthProvider'
 
 const LoginHeadbar = () => {
   const { logged } = useAuth()

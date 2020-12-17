@@ -2,8 +2,8 @@ import { Redirect, Route } from 'react-router-dom'
 import React from 'react'
 import Loader from '../components/template/Loader'
 import styled from 'styled-components'
-import useAuth from '../api/auth'
 import ROUTE from './constants'
+import { useAuth } from '../providers/AuthProvider'
 
 const LoadingContainer = styled.div`
   display: flex;

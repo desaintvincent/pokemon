@@ -2,7 +2,12 @@ import useSWR from 'swr'
 import FetchError from './FetchError'
 
 const fetcher = (resource, init = {}) => {
+  const accessToken = localStorage.getItem('accessToken')
   const headers = new Headers(init.headers || {})
+  if (accessToken) {
+    headers.set('Authorization', 'Bearer ' + accessToken)
+  }
+
   const myInit = {
     method: 'GET',
     mode: 'cors',
