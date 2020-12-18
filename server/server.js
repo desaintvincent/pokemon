@@ -31,7 +31,7 @@ app.get('/books', authenticateJWT, (req, res) => {
   return res.json(books)
 })
 
-app.get('/pokemon*', (req, res) =>
+app.get('/pokemon*', authenticateJWT, (req, res) =>
   get(`https://pokeapi.co/api/v2${req.url}`)
     .then(apiResult => res.json(JSON.parse(apiResult.body)))
     .catch(() => res.sendStatus(404))

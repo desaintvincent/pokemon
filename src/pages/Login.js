@@ -12,6 +12,7 @@ import useSubmit from '../api/useSubmit'
 import { login } from '../api/auth'
 import ROUTE from '../routing/constants'
 import { useHistory } from 'react-router'
+import { useAuth } from '../providers/AuthProvider'
 
 const Container = styled(Grid)`
   height: 100vh;
@@ -57,6 +58,7 @@ const ForgotPassword = styled.div`
 
 const useLogin = () => {
   const { submitting, submit } = useSubmit(login)
+  const { authenticate } = useAuth()
   const history = useHistory()
 
   const onLoginSubmit = (e) => {
@@ -66,11 +68,8 @@ const useLogin = () => {
       if (!data) {
         return
       }
-      const { accessToken, refreshToken } = data
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
+      authenticate(data)
       history.push(ROUTE.HOME)
-      console.log("data", data)
     })
   }
 

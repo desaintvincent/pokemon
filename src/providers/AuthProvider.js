@@ -9,22 +9,43 @@ const useAuth = () => {
   return useContext(AuthContext)
 }
 
+const useStorage = (key) => {
+  const [data, setData] = useState(localStorage.getItem(key))
+
+  const removeData = () => {
+    setData(undefined)
+  }
+
+  useEffect(() => {
+    if (data !== undefined) {
+      localStorage.setItem(key, data)
+    } else {
+      localStorage.removeItem(key)
+    }
+  },[data, key])
+
+  return [data, setData, removeData]
+}
+
 const AuthProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useState('')
-  const [refreshToken, setRefreshToken] = useState('')
+  const [accessToken, setAccessToken] = useStorage('accessToken')
+  const [refreshToken, setRefreshToken] = useStorage('refreshToken')
   const [loading, setLoading] = useState(true)
   const [logged, setLogged] = useState(false)
 
-
-  useEffect(() => {
-    setAccessToken(() => localStorage.getItem('accessToken') || '')
-    setRefreshToken(() => localStorage.getItem('refreshToken') || '')
-  },[])
+  const authenticate = ({accessToken: _accessToken, refreshToken: _refreshToken}) => {
+    setAccessToken(_accessToken)
+    setRefreshToken(_refreshToken)
+    setLoading(false)
+    setLogged(true)
+  }
 
   return (
     <AuthContext.Provider value={{
+      accessToken,
       loading,
-      logged
+      logged,
+      authenticate
     }}>
       {children}
     </AuthContext.Provider>
