@@ -8,9 +8,9 @@ const PageTabs = () => {
       <Typography variant="h4">Tabs</Typography>
       <Tabs>
         <TabList>
-          <Tab title='one' label="Item One" />
-          <Tab title="two" label="Item Two" />
-          <Tab title="three" label="Item Three" />
+          <Tab id='one' label="Item One" />
+          <Tab id="two" label="Item Two" />
+          <Tab id="three" label="Item Three" />
         </TabList>
         <TabBody>
           <TabPanel>1</TabPanel>

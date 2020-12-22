@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
-import TabList from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
+import UiTabList from '@material-ui/core/Tabs'
+import UiTab from '@material-ui/core/Tab'
+import {useHistory} from "react-router-dom";
 
 const TabContext = createContext({})
 
@@ -10,9 +11,15 @@ const useTab = () => {
 
 const Tabs = ({ children }) => {
   const [selected, setSelected] = useState(0)
+  const history = useHistory();
 
   const onSelectTab = (event, newValue) => {
-    console.log(event, newValue)
+    const id = event.target.id
+    if (id) {
+      history.push({
+        hash: `#${id}`
+      });
+    }
     setSelected(newValue)
   }
 
@@ -32,33 +39,26 @@ const TabPanel = ({ index, selected, children }) => {
   }
   return (
     <div role="tabpanel">
-      {React.Children.toArray(children).map((child, index) => (
-          <div>
-            patate
-            {index}
-            {child}
-          </div>
-      ))}
+      {selected}{index}{children}
     </div>
   )
 }
 
-/*
+const Tab = ({label, id, ...props}) => {
+  return  <UiTab {...props} label={<span id={id}>{label}</span>}/>
+}
 
-
-React.cloneElement(
-  element,
-  [props],
-  [...children]
-)
-
- */
+const TabList = ({children, ...props}) => {
+  const { selected, onSelectTab } = useTab()
+  return <UiTabList {...props} onChange={onSelectTab} value={selected} >{children}</UiTabList>
+}
 
 const TabBody = ({ children }) => {
+  const { selected } = useTab()
   return (
-      <div>
-        {children}
-      </div>
+    <div>
+      {React.Children.toArray(children).map((child, index) => React.cloneElement(child, { index, selected }))}
+    </div>
   )
 }
 
