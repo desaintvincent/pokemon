@@ -10,7 +10,6 @@ const Title = styled(Typography)`
 `
 
 const AppBar = styled(UiAppBar)`
-  background-color: ${props => props.theme.white};
   margin-left: ${props => props.theme.drawer.closed}px;
   width: calc(100% - ${props => props.theme.drawer.closed}px);
   z-index: ${({ theme }) => theme.zIndex.drawer + 1};
@@ -32,7 +31,7 @@ const Toolbar = styled(UiToolbar)`
 
 export default function Header ({ open }) {
   return (
-    <AppBar position="fixed" open={open}>
+    <AppBar position="fixed" open={open} color="background">
       <Toolbar>
         <Title variant='h6'>Title</Title>
         <LoginHeadbar/>

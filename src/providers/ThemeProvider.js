@@ -21,10 +21,10 @@ const ThemeProvider = ({ children }) => {
         palette: {
           type: prefersDarkMode ? 'dark' : 'light',
           primary: {
-            main: '#03ccb9'
+            main: prefersDarkMode ? '#008168' : '#03ccb9'
           },
           secondary: {
-            main: '#f50057'
+            main: prefersDarkMode ? '#fd8daa' : '#f50057'
           }
         }
       }),
