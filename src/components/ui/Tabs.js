@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import UiTabList from '@material-ui/core/Tabs'
 import UiTab from '@material-ui/core/Tab'
-import {useHistory} from "react-router-dom";
+import styled from 'styled-components'
+import { useHistory, useLocation } from 'react-router-dom'
 
 const TabContext = createContext({})
 
@@ -9,57 +10,59 @@ const useTab = () => {
   return useContext(TabContext)
 }
 
-const Tabs = ({ children }) => {
-  const [selected, setSelected] = useState(0)
-  const history = useHistory();
+const TabPanelContainer = styled.div`
+  padding: ${({ theme }) => theme.spacing(3)}px;
+`
+
+const Tabs = ({ children, className = '', defaultSelected }) => {
+  const [selected, setSelected] = useState(defaultSelected)
+  const history = useHistory()
+  const { hash } = useLocation()
 
   const onSelectTab = (event, newValue) => {
-    const id = event.target.id
-    if (id) {
-      history.push({
-        hash: `#${id}`
-      });
+    history.push({
+      hash: newValue
+    })
+  }
+
+  useEffect(() => {
+    if (hash) {
+      setSelected(hash[0] === '#' ? hash.substring(1) : hash)
+    } else {
+      setSelected(defaultSelected)
     }
-    setSelected(newValue)
-  }
+  }, [hash, defaultSelected])
 
   return (
-    <TabContext.Provider value={{
-      selected,
-      onSelectTab
-    }}>
-      {children}
-    </TabContext.Provider>
-  )
-}
-
-const TabPanel = ({ index, selected, children }) => {
-  if (index !== selected) {
-    return null
-  }
-  return (
-    <div role="tabpanel">
-      {selected}{index}{children}
+    <div className={className}>
+      <TabContext.Provider value={{
+        selected,
+        onSelectTab
+      }}>
+        {children}
+      </TabContext.Provider>
     </div>
   )
 }
 
-const Tab = ({label, id, ...props}) => {
-  return  <UiTab {...props} label={<span id={id}>{label}</span>}/>
+const TabPanel = ({ value, children, className = '' }) => {
+  const { selected } = useTab()
+
+  if (value !== selected) {
+    return null
+  }
+  return (
+    <TabPanelContainer role="tabpanel" className={className}>
+      {children}
+    </TabPanelContainer>
+  )
 }
 
-const TabList = ({children, ...props}) => {
+const Tab = UiTab
+
+const TabList = ({ children, ...props }) => {
   const { selected, onSelectTab } = useTab()
   return <UiTabList {...props} onChange={onSelectTab} value={selected} >{children}</UiTabList>
 }
 
-const TabBody = ({ children }) => {
-  const { selected } = useTab()
-  return (
-    <div>
-      {React.Children.toArray(children).map((child, index) => React.cloneElement(child, { index, selected }))}
-    </div>
-  )
-}
-
-export { TabList, Tab, Tabs, TabPanel, TabBody }
+export { TabList, Tab, Tabs, TabPanel }
