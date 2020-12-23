@@ -5,6 +5,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import InfoIcon from '@material-ui/icons/Info'
 import ListIcon from '@material-ui/icons/List'
 import HomeIcon from '@material-ui/icons/Home'
+import TabIcon from '@material-ui/icons/Tab'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import Link from '../../routing/Link'
@@ -46,6 +47,7 @@ const Menu = () => {
         !loggedOut && <>
           <Divider />
           <List>
+            <Item icon={<TabIcon />} text='Tabs' to={ROUTE.TABS} />
             <Item icon={<ListIcon />} text='Pokemon list' to={ROUTE.POKEMONLIST} />
           </List>
         </>

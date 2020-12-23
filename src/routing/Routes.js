@@ -10,6 +10,7 @@ import {
 import Pokemon from '../pages/Pokemon'
 import Login from '../pages/Login'
 import PrivateRoute from './PrivateRoute'
+import Tabs from '../pages/Tabs'
 
 const Routes = () => (
   <Switch>
@@ -18,6 +19,9 @@ const Routes = () => (
     </Route>
     <Route path={ROUTE.LOGIN} exact>
       <Login />
+    </Route>
+    <Route path={ROUTE.TABS} exact>
+      <Tabs />
     </Route>
     <PrivateRoute path={ROUTE.POKEMON} exact>
       <Pokemon />
