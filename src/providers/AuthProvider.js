@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useApi } from '../api/api'
 
 const AuthContext = createContext({
   loading: true,
@@ -9,8 +10,8 @@ const useAuth = () => {
   return useContext(AuthContext)
 }
 
-const useStorage = (key) => {
-  const [data, setData] = useState(localStorage.getItem(key))
+const useStorage = (key, defaultValue) => {
+  const [data, setData] = useState(localStorage.getItem(key) || defaultValue)
 
   const removeData = () => {
     setData(undefined)
@@ -28,10 +29,19 @@ const useStorage = (key) => {
 }
 
 const AuthProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useStorage('accessToken')
-  const [refreshToken, setRefreshToken] = useStorage('refreshToken')
+  const [accessToken, setAccessToken] = useStorage('accessToken', '')
+  const [refreshToken, setRefreshToken] = useStorage('refreshToken', '')
   const [loading, setLoading] = useState(true)
   const [logged, setLogged] = useState(false)
+
+  const { data: user, error } = useApi(accessToken ? '/me' : null)
+
+  useEffect(() => {
+    if (error) {
+      setLoading(false)
+      setLogged(false)
+    }
+  },[error])
 
   const authenticate = ({accessToken: _accessToken, refreshToken: _refreshToken}) => {
     setAccessToken(_accessToken)

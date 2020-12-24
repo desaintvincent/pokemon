@@ -13,6 +13,25 @@ function createToken (user, shouldExpire = true) {
   return jwt.sign(user, accessTokenSecret, shouldExpire ? { expiresIn: tokenDuration } : {})
 }
 
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization
+
+  if (!authHeader) {
+    return res.sendStatus(401)
+  }
+
+  const token = authHeader.split(' ')[1]
+
+  jwt.verify(token, accessTokenSecret, (err, user) => {
+    if (err) {
+      return res.sendStatus(403)
+    }
+
+    req.user = user
+    next()
+  })
+}
+
 routerAuth.post('/login', (req, res) => {
   const { email, password } = req.body
 
@@ -74,23 +93,12 @@ routerAuth.post('/logout', (req, res) => {
   return res.send('Logout successful')
 })
 
-const authenticateJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization
-
-  if (!authHeader) {
-    return res.sendStatus(401)
+routerAuth.get('/me', authenticateJWT, (req, res) => {
+  const user = users.find(u => { return u.id === req.user.id })
+  if (!user) {
+    return res.sendStatus(404)
   }
-
-  const token = authHeader.split(' ')[1]
-
-  jwt.verify(token, accessTokenSecret, (err, user) => {
-    if (err) {
-      return res.sendStatus(403)
-    }
-
-    req.user = user
-    next()
-  })
-}
+  return res.json(user)
+})
 
 module.exports = { routerAuth, authenticateJWT }

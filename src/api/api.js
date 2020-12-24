@@ -1,14 +1,12 @@
 import useSWR from 'swr'
 import FetchError from './FetchError'
+import { useAuth } from '../providers/AuthProvider'
 
-const fetcher = (resource, init = {}) => {
+const fetcher = (resource, init = {}, accessToken = null) => {
   const headers = new Headers(init.headers || {})
-  /*
-  const accessToken = localStorage.getItem('accessToken')
   if (accessToken) {
     headers.set('Authorization', 'Bearer ' + accessToken)
   }
-  */
 
   const myInit = {
     method: 'GET',
@@ -58,7 +56,8 @@ const post = (path, body) => fetcher(`http://localhost:3333${path}`, {
 })
 
 const useApi = (path = null) => {
-  return useSWR(path ? `http://localhost:3333${path}` : null)
+  const {accessToken} = useAuth()
+  return useSWR(path ? [`http://localhost:3333${path}`, accessToken] : null)
 }
 
 export {

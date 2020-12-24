@@ -49,7 +49,7 @@ const Menu = () => {
         logged && <>
           <Divider />
           <List>
-            <Item icon={TabIcon} text='Tabs' to={ROUTE.TABS} />
+            <Item Icon={TabIcon} text='Tabs' to={ROUTE.TABS} />
             <Item Icon={ListIcon} text='Pokemon list' to={ROUTE.POKEMONLIST} />
           </List>
         </>
