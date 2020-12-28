@@ -1,6 +1,5 @@
 class FetchError extends Error {
   constructor (response = {}, rawBody = '') {
-    console.log('__response', response)
     super('FetchError')
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, FetchError)

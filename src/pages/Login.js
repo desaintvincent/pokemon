@@ -14,10 +14,6 @@ import ROUTE from '../routing/constants'
 import { useHistory } from 'react-router'
 import { useAuth } from '../providers/AuthProvider'
 
-const Container = styled(Grid)`
-  height: 100vh;
-`
-
 const breakpoint = (size, css) => props => `${props.theme.breakpoints.up(size)} {
       ${css}
     }
@@ -64,7 +60,7 @@ const useLogin = () => {
   const onLoginSubmit = (e) => {
     e.preventDefault()
     const data = getFormData(e.target)
-    submit(data).then(({data}) => {
+    submit(data).then(({ data }) => {
       if (!data) {
         return
       }
@@ -80,7 +76,7 @@ function Login () {
   const { submitting, submit } = useLogin()
 
   return (
-    <Container container component="main">
+    <Grid container >
       <Left item xs={false} sm={false} md={6}>
         <Img src={loginImage}/>
       </Left>
@@ -126,7 +122,7 @@ function Login () {
           </Box>
         </form>
       </Right>
-    </Container>
+    </Grid>
   )
 }
 

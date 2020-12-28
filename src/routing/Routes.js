@@ -29,7 +29,7 @@ const Routes = () => (
           <Switch>
             <Route exact path={ROUTE.ABOUT} component={About}/>
             <Route exact path={ROUTE.HOME} component={Home}/>
-            <Route exact path={ROUTE.TABS} component={Tabs}/>
+            <PrivateRoute exact path={ROUTE.TABS} component={Tabs}/>
             <PrivateRoute exact path={ROUTE.POKEMON} component={Pokemon}/>
             <PrivateRoute exact path={ROUTE.POKEMONLIST} component={PokemonList}/>
           </Switch>

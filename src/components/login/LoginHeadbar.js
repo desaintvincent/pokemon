@@ -6,9 +6,11 @@ import Menu from '@material-ui/core/Menu'
 import { useHistory } from 'react-router'
 import ROUTE from '../../routing/constants'
 import { useAuth } from '../../providers/AuthProvider'
+import { logout } from '../../api/auth'
+import useSubmit from '../../api/useSubmit'
 
 const LoginHeadbar = () => {
-  const { logged } = useAuth()
+  const { logged, authenticate, refreshToken } = useAuth()
   const history = useHistory()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -16,6 +18,8 @@ const LoginHeadbar = () => {
   const goToLoginPage = () => {
     history.push(ROUTE.LOGIN)
   }
+
+  const { submit } = useSubmit(logout)
 
   if (!logged) {
     return (
@@ -39,7 +43,10 @@ const LoginHeadbar = () => {
   }
 
   const handleLogout = () => {
-    setAnchorEl(null)
+    submit({ refreshToken }).then(() => {
+      authenticate({})
+      setAnchorEl(null)
+    })
   }
 
   return <>

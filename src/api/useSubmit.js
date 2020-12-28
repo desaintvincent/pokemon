@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { SNACK, useSnack } from '../providers/SnackProvider'
+import { useAuth } from '../providers/AuthProvider'
 const useSubmit = (promise, params = {}) => {
   const {
     successMessage = 'app.success',
@@ -7,11 +8,13 @@ const useSubmit = (promise, params = {}) => {
   } = params
 
   const [submitting, setSubmitting] = useState(false)
+  const { accessToken } = useAuth()
   const snack = useSnack()
 
   const submit = (data) => {
     setSubmitting(true)
-    return promise(data)
+
+    return promise(data, accessToken)
       .then(result => {
         setSubmitting(false)
         if (successMessage) {

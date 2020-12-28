@@ -30,6 +30,7 @@ const ThemeProvider = ({ children }) => {
       }),
     [prefersDarkMode]
   )
+
   return (
     <MaterialThemeProvider theme={theme}>
       <StyledThemeProvider theme={theme}>

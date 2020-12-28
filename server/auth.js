@@ -5,7 +5,7 @@ const { refreshTokens } = require('./db')
 
 const accessTokenSecret = 'accesstokensecret'
 const refreshTokenSecret = 'refreshtokensecrethere'
-const tokenDuration = '5m'
+const tokenDuration = '5 days'
 
 const routerAuth = express.Router()
 
@@ -20,11 +20,13 @@ const authenticateJWT = (req, res, next) => {
     return res.sendStatus(401)
   }
 
+  console.log('verify')
   const token = authHeader.split(' ')[1]
 
   jwt.verify(token, accessTokenSecret, (err, user) => {
     if (err) {
-      return res.sendStatus(403)
+      console.log(err)
+      return res.status(403).send(err.message)
     }
 
     req.user = user
@@ -78,18 +80,17 @@ routerAuth.post('/refresh', (req, res) => {
 })
 
 routerAuth.post('/logout', (req, res) => {
-  const { token: refreshToken } = req.body
+  const { refreshToken } = req.body
 
   if (!refreshToken) {
-    return res.sendStatus(401)
+    return res.sendStatus(400)
   }
 
   const index = refreshTokens.indexOf(refreshToken)
-  if (index < 0) {
-    return res.sendStatus(403)
+  if (index >= 0) {
+    refreshTokens.splice(index, 1)
   }
 
-  refreshTokens.splice(index, 1)
   return res.send('Logout successful')
 })
 

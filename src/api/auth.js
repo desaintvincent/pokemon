@@ -1,5 +1,7 @@
 import { post } from './api'
 
-const login = (data) => post('/login', data)
+const login = post('/login')
 
-export { login }
+const logout = post('/logout')
+
+export { login, logout }

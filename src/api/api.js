@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import FetchError from './FetchError'
 import { useAuth } from '../providers/AuthProvider'
-
+const basePath = 'http://localhost:3333'
 const fetcher = (resource, init = {}, accessToken = null) => {
   const headers = new Headers(init.headers || {})
   if (accessToken) {
@@ -14,10 +14,10 @@ const fetcher = (resource, init = {}, accessToken = null) => {
     ...init,
     headers
   }
+
   return fetch(resource, myInit).then((response) => {
     const contentType = response.headers.get('content-type')
     if (!response.ok) {
-      console.log('response', response)
       throw new FetchError(response)
     }
 
@@ -30,8 +30,8 @@ const fetcher = (resource, init = {}, accessToken = null) => {
       .catch(() => {
         throw new FetchError(response)
       })
-      .then((text) => {
-        throw new FetchError(response, text)
+      .then((message) => {
+        return { message }
       })
   }).catch(error => {
     if (error instanceof FetchError) {
@@ -46,22 +46,27 @@ const fetcher = (resource, init = {}, accessToken = null) => {
   })
 }
 
-const post = (path, body) => fetcher(`http://localhost:3333${path}`, {
+const post = (path) => (body = {}, accessToken = '') => fetcher(`http://localhost:3333${path}`, {
   method: 'POST',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
   },
   body: JSON.stringify(body)
-})
+}, accessToken)
+
+const useApiWithToken = (path = null, accessToken = null) => useSWR(path ? [basePath + path, accessToken] : null, (ressource, accessToken) => fetcher(ressource, {}, accessToken))
 
 const useApi = (path = null) => {
-  const {accessToken} = useAuth()
-  return useSWR(path ? [`http://localhost:3333${path}`, accessToken] : null)
+  const { accessToken } = useAuth()
+
+  return useApiWithToken(path, accessToken)
 }
 
 export {
+  basePath,
   fetcher,
+  useApiWithToken,
   useApi,
   post
 }

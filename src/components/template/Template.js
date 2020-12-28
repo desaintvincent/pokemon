@@ -6,7 +6,8 @@ import Sidebar from './Sidebar'
 const Content = styled.main`
   position: relative;
   padding: ${({ theme }) => theme.spacing(3)}px;
-  flex: 1;
+  display: flex;
+  min-height: 100vh;
 `
 
 const ContentOffset = styled.div`
@@ -28,7 +29,9 @@ const Template = ({ children, empty = false }) => {
   if (empty) {
     return (
       <Root>
-        {children}
+        <Content>
+          {children}
+        </Content>
       </Root>
     )
   }
