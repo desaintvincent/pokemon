@@ -5,7 +5,7 @@ const { refreshTokens } = require('./db')
 
 const accessTokenSecret = 'accesstokensecret'
 const refreshTokenSecret = 'refreshtokensecrethere'
-const tokenDuration = '5 days'
+const tokenDuration = '5 seconds'
 
 const routerAuth = express.Router()
 
@@ -26,7 +26,7 @@ const authenticateJWT = (req, res, next) => {
   jwt.verify(token, accessTokenSecret, (err, user) => {
     if (err) {
       console.log(err)
-      return res.status(403).send(err.message)
+      return res.status(401).send(err.message)
     }
 
     req.user = user

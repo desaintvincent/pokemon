@@ -28,11 +28,16 @@ const getFormData = (form) => {
 
 const Left = styled(Grid)`
   display: none;
+  
   ${breakpoint('md', `
       display: flex;
       justify-content: center;
       align-items: center;
   `)}
+`
+
+const Container = styled(Grid)`
+  min-height: 100%;
 `
 
 const Img = styled.img`
@@ -76,7 +81,7 @@ function Login () {
   const { submitting, submit } = useLogin()
 
   return (
-    <Grid container >
+    <Container container >
       <Left item xs={false} sm={false} md={6}>
         <Img src={loginImage}/>
       </Left>
@@ -122,7 +127,7 @@ function Login () {
           </Box>
         </form>
       </Right>
-    </Grid>
+    </Container>
   )
 }
 

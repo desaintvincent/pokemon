@@ -5,9 +5,11 @@ import Sidebar from './Sidebar'
 
 const Content = styled.main`
   position: relative;
-  padding: ${({ theme }) => theme.spacing(3)}px;
+  padding: ${({ theme, padding }) => padding ? theme.spacing(3) : 0}px;
   display: flex;
   min-height: 100vh;
+  width: 100%;
+  flex-direction: column;
 `
 
 const ContentOffset = styled.div`
@@ -44,7 +46,7 @@ const Template = ({ children, empty = false }) => {
     <Root>
       <Header open={open}/>
       <Sidebar toogleSidebar={toogleSidebar} open={open}/>
-      <Content>
+      <Content padding>
         <ContentOffset/>
         {children}
       </Content>
