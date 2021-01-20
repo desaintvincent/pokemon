@@ -1,0 +1,12 @@
+{
+  "page": {
+    "home": {
+      "title": "homepage"
+    }
+  },
+  "app": {
+    "changeLanguage": "change language",
+    "success": "success",
+    "error": "error"
+  }
+}

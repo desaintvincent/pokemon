@@ -1,9 +1,12 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
+import { FormattedMessage } from 'react-intl'
 
 const Home = () => (
   <>
-    <Typography variant="h4">Homepage</Typography>
+    <Typography variant="h4">
+      <FormattedMessage id="page.home.title"/>
+    </Typography>
     <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum

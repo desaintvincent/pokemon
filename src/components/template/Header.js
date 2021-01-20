@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import styled from 'styled-components'
 import UiAppBar from '@material-ui/core/AppBar'
 import LoginHeadbar from '../login/LoginHeadbar'
+import LangageSwitcher from './LangageSwitcher'
 
 const Title = styled(Typography)`
   flex-grow: 1;
@@ -35,6 +36,7 @@ export default function Header ({ open }) {
     <AppBar position="fixed" open={open}>
       <Toolbar>
         <Title variant='h6'>Title</Title>
+        <LangageSwitcher />
         <LoginHeadbar/>
       </Toolbar>
     </AppBar>
